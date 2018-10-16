@@ -16,22 +16,10 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 public class RouterApplication {
 
-    @Autowired
-    private CamelContext context;
-
-    @Value("${spring.activemq.broker-url}")
-    private String broker_url;
-
-
-    @PostConstruct
-    public void init() throws Exception {
-        context.addComponent("jms", ActiveMQComponent.activeMQComponent(broker_url));
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(RouterApplication.class, args);
     }
-
 
     public enum IntegrationType{
 

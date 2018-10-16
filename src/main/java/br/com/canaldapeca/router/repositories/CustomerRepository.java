@@ -6,9 +6,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository("customerRepository")
+@Repository
 public interface CustomerRepository extends CrudRepository<Customer,Long> {
 
-    @Query("select c from Customer where :column = :value")
-    Customer findByIntegrationId(@Param("column") String integrationColumn, @Param("value") Long customerId);
+    public abstract Customer findByCwsId(Long id);
+
+    public abstract Customer findBySalesForceId(String id);
+
+    public abstract Customer findByOrOriginId(Long id);
 }

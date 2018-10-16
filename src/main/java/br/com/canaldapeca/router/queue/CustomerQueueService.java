@@ -1,12 +1,12 @@
 package br.com.canaldapeca.router.queue;
 
 import br.com.canaldapeca.router.services.CustomerService;
+import br.com.canaldapeca.router.services.CustomerServiceImp;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
 
 import javax.jms.JMSException;
@@ -22,7 +22,6 @@ public class CustomerQueueService {
 
     @Autowired
     private CustomerService customerService;
-
 
     /**
      * Escutar fila de Customer e fazer verificação de sistema

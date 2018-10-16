@@ -16,13 +16,13 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true, unique = true)
+    @Column(nullable = true, unique = true, name = "csw_id" )
     private Long cwsId;
 
-    @Column(nullable = true, unique = true)
+    @Column(nullable = true, unique = true, name = "salesforce_Id")
     private Long originId;
 
-    @Column(nullable = true, unique = true)
+    @Column(nullable = true, unique = true, name = "origin_id" )
     private String salesForceId;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -31,11 +31,11 @@ public class Customer {
 
     public static String getIntegrationColumn(RouterApplication.IntegrationType type){
         if( type == RouterApplication.IntegrationType.CWS ){
-            return "cwsId" ;
+            return "cws_id" ;
         } else if( type == RouterApplication.IntegrationType.SALESFORCE ){
-            return "salesForceId";
+            return "salesforce_Id";
         } else {
-            return "originId";
+            return "origin_id";
         }
     }
 
