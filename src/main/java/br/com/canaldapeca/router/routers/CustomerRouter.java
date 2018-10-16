@@ -19,7 +19,7 @@ public class CustomerRouter extends RouteBuilder {
     private final String ROUTE_NAME = "CUSTOMER";
 
     /**
-     * Rota usando Camel
+     * Adicionar um cliente na fila usando um
      * @throws Exception
      */
     @Override
@@ -39,7 +39,7 @@ public class CustomerRouter extends RouteBuilder {
      * @return
      * @throws JMSException
      */
-    // @JmsListener(destination = "customer.incoming")
+    @JmsListener(destination = "customer.incoming")
     // @SendTo("outbound.topic")
     public String receiveMessageFromTopic(final Message jsonMessage) throws JMSException {
         String messageData = null;

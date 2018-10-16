@@ -27,7 +27,7 @@ public class CustomerQueueService {
      * Escutar fila de Customer e fazer verificação de sistema
      * @param jsonMessage
      */
-    @JmsListener(destination = "customer")
+    // @JmsListener(destination = "customer")
     public void receiveMessageFromQueue(final Message jsonMessage) throws JMSException {
 
         logger.info("Received customer: " + jsonMessage);
