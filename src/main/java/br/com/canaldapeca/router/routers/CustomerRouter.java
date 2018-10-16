@@ -30,14 +30,7 @@ public class CustomerRouter extends RouteBuilder {
                 .to("jms:executed");
     }
 
-    /**
-     * Listener de fila JMS
-     * @param text
-     */
-    @JmsListener(destination = "sample.queue")
-    public void receiveQueue(String text) {
-        System.out.println(text);
-    }
+
 
     /**
      * Listener de JSM com adição de resultado em fila

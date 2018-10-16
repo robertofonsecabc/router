@@ -5,7 +5,7 @@ Roteador
 ## Dependencias
 
 ### ActiveMQ
-$ cd bin/
+$ cd /Users/roberto/Downloads/apache-activemq-5.15.6/bin/
 $ sh activemq console
 
 Acessar http://0.0.0.0:8161/ 

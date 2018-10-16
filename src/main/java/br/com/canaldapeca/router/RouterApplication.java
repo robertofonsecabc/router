@@ -32,4 +32,21 @@ public class RouterApplication {
         SpringApplication.run(RouterApplication.class, args);
     }
 
+
+    public enum IntegrationType{
+
+        CWS("cws"), DATABASE("database"), SALESFORCE("salesforce");
+
+        private final String description;
+
+        IntegrationType(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+    }
+
 }
