@@ -37,7 +37,7 @@ public class CustomerQueueService {
             String messageData = textMessage.getText();
             Map map = new Gson().fromJson(messageData, Map.class);
 
-            customerService.integrate( (Long) map.get("id") , (String) map.get("origin") );
+            customerService.integrate( (String) map.get("id") , (String) map.get("origin") );
             return;
         }
 

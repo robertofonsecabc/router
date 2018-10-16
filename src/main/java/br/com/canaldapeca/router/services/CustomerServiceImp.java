@@ -12,11 +12,22 @@ public class CustomerServiceImp implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public void integrate(Long customerId, String origin) {
+    @Override
+    public Customer getCustomerByType(RouterApplication.IntegrationSystem type , String customerId){
+        switch (type){
+            case CWS: return this.customerRepository.findByCwsId( Long.parseLong(customerId) );
+            case SALESFORCE: return this.customerRepository.findBySalesForceId( customerId );
+            case DATABASE: return this.customerRepository.findByOrOriginId( Long.parseLong(customerId) );
+        }
+        return null;
+    }
 
-        RouterApplication.IntegrationType type = RouterApplication.IntegrationType.valueOf(origin);
+    @Override
+    public void integrate(String customerId, String origin) {
 
-        Customer customer = customerRepository.findByIntegrationId( Customer.getIntegrationColumn(type) , customerId );
+        RouterApplication.IntegrationSystem type = RouterApplication.IntegrationSystem.valueOf(origin);
+
+        Customer customer = this.getCustomerByType( type , customerId );
 
 
 

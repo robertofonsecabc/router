@@ -1,15 +1,11 @@
 package br.com.canaldapeca.router;
 
 
-import org.apache.camel.CamelContext;
-import org.apache.activemq.camel.component.ActiveMQComponent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jms.annotation.EnableJms;
 
-import javax.annotation.PostConstruct;
+import java.util.Arrays;
 
 
 @EnableJms
@@ -21,14 +17,30 @@ public class RouterApplication {
         SpringApplication.run(RouterApplication.class, args);
     }
 
-    public enum IntegrationType{
+    /**
+     * Sistemas que serão integrados
+     *
+     * Atinge diretamente os seguintes arquivos:
+     *
+     * @see br.com.canaldapeca.router.services.CustomerServiceImp#getCustomerByType(IntegrationSystem, String)
+     */
+    public enum IntegrationSystem {
 
         CWS("cws"), DATABASE("database"), SALESFORCE("salesforce");
 
         private final String description;
 
-        IntegrationType(String description) {
+        IntegrationSystem(String description) {
             this.description = description;
+        }
+
+        public static IntegrationSystem fromValue(String value) {
+            for (IntegrationSystem category : values()) {
+                if (category.description.equalsIgnoreCase(value)) {
+                    return category;
+                }
+            }
+            throw new IllegalArgumentException("Unknown enum type " + value + ", Allowed values are " + Arrays.toString(values()));
         }
 
         public String getDescription() {
@@ -37,4 +49,30 @@ public class RouterApplication {
 
     }
 
+    /**
+     * Tipos de dados que são aceitos para integração
+     */
+    public enum  IntegrationType {
+
+        CUSTOMER("customer"), PRODUCT("product"), STOCK("stock");
+
+        private final String description;
+
+        IntegrationType(String description) {
+            this.description = description;
+        }
+
+        public static IntegrationType fromValue(String value) {
+            for (IntegrationType category : values()) {
+                if (category.description.equalsIgnoreCase(value)) {
+                    return category;
+                }
+            }
+            throw new IllegalArgumentException("Unknown enum type " + value + ", Allowed values are " + Arrays.toString(values()));
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
 }

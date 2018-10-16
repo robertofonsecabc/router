@@ -29,10 +29,10 @@ public class Customer {
     private Calendar lastSyncDate = Calendar.getInstance();
 
 
-    public static String getIntegrationColumn(RouterApplication.IntegrationType type){
-        if( type == RouterApplication.IntegrationType.CWS ){
+    public static String getIntegrationColumn(RouterApplication.IntegrationSystem type){
+        if( type == RouterApplication.IntegrationSystem.CWS ){
             return "cws_id" ;
-        } else if( type == RouterApplication.IntegrationType.SALESFORCE ){
+        } else if( type == RouterApplication.IntegrationSystem.SALESFORCE ){
             return "salesforce_Id";
         } else {
             return "origin_id";

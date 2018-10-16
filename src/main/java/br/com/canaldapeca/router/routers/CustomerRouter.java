@@ -24,10 +24,10 @@ public class CustomerRouter extends RouteBuilder {
      */
     @Override
     public void configure() throws Exception {
-        from("direct:firstRoute")
+        from("direct:addCustomer")
                 .routeId(ROUTE_NAME)
-                .log("Camel body: ${body}")
-                .to("jms:executed");
+                .log("Adicionar cliente na fila: ${body}")
+                .to("jms:customer.incoming");
     }
 
 
@@ -39,8 +39,8 @@ public class CustomerRouter extends RouteBuilder {
      * @return
      * @throws JMSException
      */
-    @JmsListener(destination = "inbound.topic")
-    @SendTo("outbound.topic")
+    // @JmsListener(destination = "customer.incoming")
+    // @SendTo("outbound.topic")
     public String receiveMessageFromTopic(final Message jsonMessage) throws JMSException {
         String messageData = null;
         System.out.println("Received message " + jsonMessage);
