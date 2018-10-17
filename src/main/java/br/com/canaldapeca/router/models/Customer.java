@@ -12,6 +12,14 @@ import java.util.Calendar;
 @Table(name = "customer")
 public class Customer {
 
+    public Customer(){}
+
+    public Customer(Long cwsId, Long originId, String salesForceId){
+        this.cwsId = cwsId;
+        this.originId = originId;
+        this.salesForceId = salesForceId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

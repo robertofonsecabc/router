@@ -12,6 +12,9 @@ public class CustomerServiceImp implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private CWSService cwsService;
+
     @Override
     public Customer getCustomerByType(RouterApplication.IntegrationSystem type , String customerId){
         switch (type){
@@ -24,12 +27,34 @@ public class CustomerServiceImp implements CustomerService {
 
     @Override
     public void integrate(String customerId, String origin) {
-
         RouterApplication.IntegrationSystem type = RouterApplication.IntegrationSystem.valueOf(origin);
 
+        // Buscar cliente para ver se tem ID cadastrado nos outros sistemas
         Customer customer = this.getCustomerByType( type , customerId );
 
+        // Se não tem o cliente
+        if( customer == null ){
+            customer = new Customer();
+        }
 
+        switch (type){
+            case CWS:
+                customer.setCwsId( Long.parseLong(customerId) );
+                // integrar com os outros sistemas
+                break;
+            case SALESFORCE:
+                customer.setSalesForceId( customerId );
+                // integrar com os outros sistemas
+                Long cwsId = this.cwsService.integrateCustomer()
 
+                break;
+            case DATABASE:
+                customer.setOriginId( Long.parseLong(customerId) );
+                // integrar com os outros sistemas
+
+                break;
+        }
+
+        this.customerRepository.save(customer);
     }
 }
